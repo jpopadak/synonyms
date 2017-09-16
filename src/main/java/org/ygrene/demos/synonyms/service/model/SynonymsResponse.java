@@ -1,13 +1,11 @@
 package org.ygrene.demos.synonyms.service.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 
-import java.util.Set;
+import java.util.*;
 
 @Data
-@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SynonymsResponse {
 

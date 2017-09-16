@@ -1,8 +1,8 @@
 package org.ygrene.demos.synonyms.configuration;
 
-import lombok.Getter;
+import lombok.*;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 
 @Getter
 @Configuration
@@ -16,4 +16,22 @@ public class SynonymsConfig {
 
     @Value("${org.ygrene.demos.synonyms.mashape.token}")
     private String mashapeToken;
+
+    @Value("${org.ygrene.demos.synonyms.validWordPattern:^[A-z]+((-| )?[A-z]+)*$}")
+    private String validWordPattern;
+
+    @Value("${org.ygrene.demos.synonyms.data.refresh.hours:12}")
+    private int dataRefreshLimitInHours;
+
+    /**
+     * Number of hours that a word can be good for in our database
+     *
+     * @return A never negative number
+     */
+    public int getDataRefreshLimitInHours() {
+        if (dataRefreshLimitInHours < 0) {
+            dataRefreshLimitInHours = -dataRefreshLimitInHours;
+        }
+        return dataRefreshLimitInHours;
+    }
 }

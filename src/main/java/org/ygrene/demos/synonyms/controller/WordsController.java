@@ -1,12 +1,11 @@
 package org.ygrene.demos.synonyms.controller;
 
-import lombok.NonNull;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.ygrene.demos.synonyms.service.api.SynonymService;
+import lombok.*;
+import org.springframework.web.bind.annotation.*;
+import org.ygrene.demos.synonyms.service.api.*;
+import org.ygrene.demos.synonyms.service.api.exceptions.*;
 
-import java.util.Set;
+import java.util.*;
 
 @RestController
 public class WordsController {
@@ -24,9 +23,10 @@ public class WordsController {
      *
      * @param word A word to search for synonyms for
      * @return A non-null set of strings, can be empty
+     * @throws WordException If input is invalid or service issues occur
      */
     @GetMapping("synonyms")
-    public Set<String> getSynonyms(@RequestParam @NonNull String word) {
+    public Set<String> getSynonyms(@RequestParam @NonNull String word) throws WordException {
         return synonymService.getSynonymsForWord(word);
     }
 }

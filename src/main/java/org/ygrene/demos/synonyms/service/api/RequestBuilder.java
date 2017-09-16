@@ -1,11 +1,11 @@
 package org.ygrene.demos.synonyms.service.api;
 
-import lombok.NonNull;
-import org.springframework.http.HttpHeaders;
-import org.springframework.util.MultiValueMap;
+import io.vavr.control.*;
+import lombok.*;
+import org.springframework.http.*;
+import org.springframework.util.*;
 
-import java.net.URI;
-import java.util.Optional;
+import java.net.*;
 
 public interface RequestBuilder {
 
@@ -39,11 +39,11 @@ public interface RequestBuilder {
     /**
      * Retrieves an object from a service
      *
+     * @param <T>        The type of object to map the results to
      * @param uri        URI to do a {@link org.springframework.http.HttpMethod#GET}
      * @param headers    Headers to apply to the request
      * @param resultType The class type of the requested object
-     * @param <T>        The type of object to map the results to
      * @return An optional of empty, or the object requested
      */
-    <T> Optional<T> getFromService(@NonNull URI uri, @NonNull HttpHeaders headers, @NonNull Class<T> resultType);
+    <T> Try<T> getFromService(@NonNull URI uri, @NonNull HttpHeaders headers, @NonNull Class<T> resultType);
 }
