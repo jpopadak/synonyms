@@ -42,8 +42,15 @@ NOTE:
 
 ### Application Setup
 
+#### Locally 
 1. Inside of `application.properties`, you will find a property named `org.ygrene.demos.synonyms.mashape.token`. This property must be set in order to access the `wordsapi.com` API.
 2. Run `mvn spring-boot:run` to run the service.
+
+#### Docker
+1. Ensure you have your `~/.dockercfg` setup for pulling, pushing, building images
+2. Update the POM file to uncomment the `push` line in the `dockerfile-maven-plugin` plugin
+3. Run `mvn install`
+4. Run the docker container with the command line variable or environment variable `org.ygrene.demos.synonyms.mashape.token`. This property must be set in order to access the `wordsapi.com` API. 
 
 ## Code Setup
 

@@ -115,12 +115,50 @@
 
     <build>
         <plugins>
+            <!-- Copy the dependencies to `target/lib` -->
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Create Spring Boot Jar -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <finalName>${project.artifactId}</finalName>
+                </configuration>
+            </plugin>
+            <!-- Create a docker image using the docker file -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.3.6</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build</goal>
+                            <!-- <goal>push</goal> --> <!-- Use this to push the image to dockerhub -->
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <repository>jpopadak/synonyms</repository>
+                    <tag>${project.version}</tag>
+                </configuration>
             </plugin>
         </plugins>
     </build>
-
 
 </project>
